@@ -12,8 +12,19 @@
     <Grid x:Name="MainGrid">
         <Button x:Name="ColorChangeButton"
                 HorizontalAlignment="Center"
-                Content="Click me to change color"
-                Click="ColorChangeButton_OnClick" />
+                Content="Click me to change color">
+            <interactivity:Interaction.Behaviors>
+                <interactions:EventTriggerBehavior EventName="Click"
+                                                   SourceObject="{x:Bind ColorChangeButton}">
+                    <interactions:ChangePropertyAction TargetObject="{x:Bind MainGrid}"
+                                                       PropertyName="Background"
+                                                       Value="LightBlue" />
+                    <interactions:ChangePropertyAction TargetObject="{x:Bind ColorChangeButton}"
+                                                       PropertyName="Content"
+                                                       Value="Yaay, you changed the color" />
+                </interactions:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </Button>
     </Grid>
 </Page>
 

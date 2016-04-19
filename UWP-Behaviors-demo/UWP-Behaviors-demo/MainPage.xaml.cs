@@ -27,11 +27,5 @@ namespace UWP_Behaviors_demo
         {
             this.InitializeComponent();
         }
-
-        private void ColorChangeButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            this.MainGrid.Background = new SolidColorBrush(Colors.LightBlue);
-            this.ColorChangeButton.Content = "Yaay, you changed the color";
-        }
     }
 }
