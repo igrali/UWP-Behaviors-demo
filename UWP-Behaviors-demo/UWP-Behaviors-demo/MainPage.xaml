@@ -10,21 +10,23 @@
     mc:Ignorable="d">
 
     <Grid x:Name="MainGrid">
-        <Button x:Name="ColorChangeButton"
-                HorizontalAlignment="Center"
-                Content="Click me to change color">
-            <interactivity:Interaction.Behaviors>
-                <interactions:EventTriggerBehavior EventName="Click"
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Button x:Name="ColorChangeButton"
+                    Content="Click me to change color">
+                <interactivity:Interaction.Behaviors>
+                    <interactions:EventTriggerBehavior EventName="Click"
                                                    SourceObject="{x:Bind ColorChangeButton}">
-                    <interactions:ChangePropertyAction TargetObject="{x:Bind MainGrid}"
+                        <interactions:ChangePropertyAction TargetObject="{x:Bind MainGrid}"
                                                        PropertyName="Background"
                                                        Value="LightBlue" />
-                    <interactions:ChangePropertyAction TargetObject="{x:Bind ColorChangeButton}"
+                        <interactions:ChangePropertyAction TargetObject="{x:Bind ColorChangeButton}"
                                                        PropertyName="Content"
                                                        Value="Yaay, you changed the color" />
-                </interactions:EventTriggerBehavior>
-            </interactivity:Interaction.Behaviors>
-        </Button>
+                    </interactions:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>
 
