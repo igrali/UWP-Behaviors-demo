@@ -1,5 +1,4 @@
 ﻿<Page
-    x:Class="UWP_Behaviors_demo.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:UWP_Behaviors_demo"
@@ -7,7 +6,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
+    x:Class="UWP_Behaviors_demo.MainPage"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Key="PulseTextStoryboard" 
+                    Duration="0:0:1"
+                    RepeatBehavior="Forever"
+                    AutoReverse="True">
+            <DoubleAnimation Storyboard.TargetName="NumberText"
+                             Storyboard.TargetProperty="FontSize"
+                             EnableDependentAnimation="True"
+                             From="36"
+                             To="144"/>
+        </Storyboard>
+    </Page.Resources>
 
     <Grid x:Name="MainGrid">
         <StackPanel HorizontalAlignment="Center"
@@ -16,16 +30,30 @@
                     Content="Click me to change color">
                 <interactivity:Interaction.Behaviors>
                     <interactions:EventTriggerBehavior EventName="Click"
-                                                   SourceObject="{x:Bind ColorChangeButton}">
+                                                       SourceObject="{x:Bind ColorChangeButton}">
                         <interactions:ChangePropertyAction TargetObject="{x:Bind MainGrid}"
-                                                       PropertyName="Background"
-                                                       Value="LightBlue" />
+                                                           PropertyName="Background"
+                                                           Value="LightBlue" />
                         <interactions:ChangePropertyAction TargetObject="{x:Bind ColorChangeButton}"
-                                                       PropertyName="Content"
-                                                       Value="Yaay, you changed the color" />
+                                                           PropertyName="Content"
+                                                           Value="Yaay, you changed the color" />
                     </interactions:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
             </Button>
+            <Button Content="Click me to increment the number"
+                    Click="{x:Bind ViewModel.IncrementTheNumber}" />
+            <TextBlock x:Name="NumberText"
+                       Text="{x:Bind ViewModel.Number, Mode=OneWay}"
+                       FontSize="36">
+                <interactivity:Interaction.Behaviors>
+                    <interactions:DataTriggerBehavior Binding="{x:Bind ViewModel.Number, Mode=OneWay}"
+                                                      ComparisonCondition="GreaterThan"
+                                                      Value="5">
+                        <Media:ControlStoryboardAction Storyboard="{StaticResource PulseTextStoryboard}"
+                                                       ControlStoryboardOption="TogglePlayPause" />
+                    </interactions:DataTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </Page>
