@@ -24,6 +24,30 @@
     </Page.Resources>
 
     <Grid x:Name="MainGrid">
+        <ContentDialog x:Name="RateSessionDialog"
+                       IsPrimaryButtonEnabled="True"
+                       PrimaryButtonText="OK"
+                       IsSecondaryButtonEnabled="False"
+                       Background="LightBlue">
+            <TextBlock Text="Don't forget to rate the session! :)"
+                       TextWrapping="Wrap"
+                       FontSize="44" />
+        </ContentDialog>
+        
+        <Image x:Name="TargetImage" />
+        
+        <Border x:Name="DropSurface"
+                Width="320"
+                Height="240"
+                Background="Green" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top">
+            <interactivity:Interaction.Behaviors>
+                <local:DropImageBehavior TargetImage="{x:Bind TargetImage}">
+                    <local:ShowContentDialogAction ContentDialog="{x:Bind RateSessionDialog}"/>
+                </local:DropImageBehavior>
+            </interactivity:Interaction.Behaviors>
+        </Border>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <Button x:Name="ColorChangeButton"
